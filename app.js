@@ -1,5 +1,4 @@
 const express = require('express');
-const mustache = require('mustache')
 const mustache_express = require('mustache-express')
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
@@ -11,31 +10,40 @@ app.engine('mustache', mustache_express())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-//
-// app.use(expressValidator());
+app.use(bodyParser.urlencoded({ extended: false}));
+
+app.use(expressValidator());
+
 
 app.get('/', function(req, res){
-  // Set 'action' to '/'
-
   res.render('index');
 });
 
 
-app.post('/', function(req, res){
+app.post('/results', function(req, res){
+    req.checkBody("name", "You must enter a real Name!").notEmpty();
+    req.checkBody("email", "You must enter a real Email!").isEmail();
+    req.checkBody("birthday", "You must enter a birthday! when. is your birthday?!").notEmpty();
+    req.checkBody("birthday", "You must enter a real birthday! when. is your real birthday?!").notEmpty();
+    req.checkBody("birthday", "You must enter a real birthday! when. is your real birthday?!").isAfter();
+    req.checkBody("name", "You must enter a real Name!").notEmpty();
+    req.checkBody("name", "You must enter a real Name!").notEmpty();
+    req.checkBody("name", "You must enter a real Name!").notEmpty();
     req.checkBody("name", "You must enter a real Name!").notEmpty();
 
 
-      var errors = req.validationErrors();
+      let results = {};
+        results.name = req.body.name;
+        //result.otherinfo = req.body.otherinfo
+
+      let errors = req.validationErrors();
+
    if (errors) {
-     // Render validation error messages
-     var html = errors;
-     res.send(html);
-   } else {
-     var name = req.body.name;
-     var html = '<p>Your user name is: </p>' + name;
-     res.send(html);
+    res.render('index', {errors: errors});
+      } else {
+
+     res.render('index', {results: results})
     }
-  });
+  })
+
 app.listen(3000);

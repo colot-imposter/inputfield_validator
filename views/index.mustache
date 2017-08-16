@@ -5,22 +5,34 @@
     <title></title>
   </head>
   <body>
-    <form class="sheet" action="/" method="post">
-    
+    <form class="sheet" action="/results" method="post">
+
       <input type="text" name="name" value="" placeholder="Name">
-      <!-- <input type="text" name="email" value="" placeholder="Email">
+      <input type="text" name="email" value="" placeholder="Email">
       <input type="date" name="birthday" value="" placeholder="Birthday">
       <select class="Jobs" name="jobs" value="" placeholder="">
-        <option value="Graphic Designer"></option>
-        <option value="Hamburgleur"></option>
-        <option value="Heuttdooglier"></option>
-        <option value="Frank Azar"></option>
+        <option value="Graphic Designer">Graphic Designer</option>
+        <option value="Hamburgleur">Hamburgleur</option>
+        <option value="Heuttdooglier">Heuttdooglier</option>
+        <option value="Frank Azar">Frank Azar</option>
       </select>
-      <input type="password" name="password" value="" placeholder="password"> -->
+      <input type="password" name="password" value="" placeholder="password"> --> -->
       <button type="submit" name="submitButton"></button>
 
-
     </form>
+
+    {{#results}}
+    {{name}}
+    {{email}}
+    {{birthday}}
+    {{jobs}}
+    {{password}}
+    {{/results}}
+
+    {{#errors}}
+     {{msg}}
+   {{/errors}}
+
 
   </body>
 </html>
